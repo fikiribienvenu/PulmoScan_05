@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f0f9ff;
+    color: #0f172a;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Plus Jakarta Sans", Inter, sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl border border-medical-border shadow-card;
+  }
+
+  .card-glass {
+    @apply backdrop-blur-sm bg-white/80 rounded-2xl border border-white/60 shadow-card;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-teal-600 text-white font-semibold
+           px-6 py-3 rounded-xl hover:from-primary-700 hover:to-teal-700
+           transition-all duration-200 shadow-medical hover:shadow-glow
+           disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-600 font-semibold
+           px-6 py-3 rounded-xl hover:bg-primary-50
+           transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-medical-border
+           bg-white text-medical-text placeholder-medical-muted
+           focus:outline-none focus:ring-2 focus:ring-primary-300
+           focus:border-primary-400 transition-all duration-150;
+  }
+
+  .risk-badge-high {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           bg-red-100 text-red-700 font-semibold text-sm border border-red-200;
+  }
+
+  .risk-badge-low {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           bg-green-100 text-green-700 font-semibold text-sm border border-green-200;
+  }
+
+  .section-title {
+    @apply text-2xl font-display font-bold text-medical-text;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100
+           rounded-lg;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0f9ff; }
+::-webkit-scrollbar-thumb { background: #bfe3fd; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #93d1fc; }
