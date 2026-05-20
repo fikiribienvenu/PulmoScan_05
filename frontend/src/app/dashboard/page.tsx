@@ -9,7 +9,7 @@ import { Statistics } from "@/types";
 import Link from "next/link";
 import {
   Activity, Users, AlertTriangle, CheckCircle2,
-  FileSearch, Upload, BarChart3, ArrowRight,
+  FileSearch, Upload, BarChart3, ArrowRight, Hospital, TrendingUp,
 } from "lucide-react";
 
 function StatCard({ label, value, icon: Icon, color }: any) {
@@ -72,6 +72,33 @@ export default function DashboardPage() {
                 <StatCard label="My Assessments" value={stats.doctor_stats.total} icon={Users} color="bg-gradient-to-br from-teal-400 to-teal-600" />
               </>
             ) : null}
+          </div>
+
+          {/* CHUB Hospital Highlight */}
+          <div className="rounded-2xl bg-gradient-to-r from-slate-800 to-slate-700 p-5 mb-8 shadow-medical">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                <Hospital className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-white font-display font-bold">CHUB Butare Hospital Data</p>
+                <p className="text-white/60 text-xs">Confirmed lung cancer cases 2022–2025</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { label: "Total Cases", value: "135", sub: "2022–2025", color: "from-blue-500/30 to-blue-600/30" },
+                { label: "Peak Year", value: "2023", sub: "47 cases", color: "from-indigo-500/30 to-indigo-600/30" },
+                { label: "Male Cases", value: "87", sub: "64% of total", color: "from-sky-500/30 to-sky-600/30" },
+                { label: "Female Cases", value: "48", sub: "36% of total", color: "from-pink-500/30 to-pink-600/30" },
+              ].map(({ label, value, sub, color }) => (
+                <div key={label} className={`rounded-xl bg-gradient-to-br ${color} border border-white/10 p-3`}>
+                  <p className="text-white font-display font-black text-2xl">{value}</p>
+                  <p className="text-white/80 text-xs font-medium">{label}</p>
+                  <p className="text-white/50 text-xs">{sub}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Quick Actions */}

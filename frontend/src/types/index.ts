@@ -66,11 +66,19 @@ export interface YearlyStats {
   cases: number;
 }
 
+export interface YearlyGenderStats {
+  year: number;
+  male: number;
+  female: number;
+}
+
 export interface Statistics {
   total_predictions: number;
   high_risk_count: number;
   low_risk_count: number;
   yearly_cases: YearlyStats[];
+  yearly_gender: YearlyGenderStats[];
+  chub_totals: { total: number; male: number; female: number; peak_year: number; peak_cases: number };
   gender_breakdown: { male: number; female: number };
   subtype_breakdown: { nsclc: number; sclc: number };
   model_metrics: Record<string, { accuracy: number; roc_auc: number }>;

@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import api from "@/lib/api";
 import toast from "react-hot-toast";
 import { BatchResult } from "@/types";
-import { Upload, FileSpreadsheet, CheckCircle, AlertTriangle, Download } from "lucide-react";
+import { Upload, FileSpreadsheet, CheckCircle, AlertTriangle, Download, FileDown } from "lucide-react";
 
 export default function BatchPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -47,9 +47,19 @@ export default function BatchPage() {
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = "batch_results.csv";
-    a.click();
+    a.href = url; a.download = "batch_results.csv"; a.click();
+  };
+
+  const downloadTemplate = () => {
+    const headers = "patient_name,AGE,GENDER,SMOKING,YELLOW_FINGERS,ANXIETY,PEER_PRESSURE,CHRONIC_DISEASE,FATIGUE,ALLERGY,WHEEZING,ALCOHOL_CONSUMING,COUGHING,SHORTNESS_OF_BREATH,SWALLOWING_DIFFICULTY,CHEST_PAIN";
+    const sample1 = "John Doe,55,M,2,1,1,1,2,2,1,2,1,2,2,1,2";
+    const sample2 = "Jane Smith,42,F,1,1,2,1,1,2,2,1,1,2,1,1,1";
+    const sample3 = "Robert Brown,63,M,2,2,1,2,1,1,1,1,2,1,2,2,2";
+    const csv = [headers, sample1, sample2, sample3].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "pulmoscan_batch_template.csv"; a.click();
   };
 
   return (
@@ -70,14 +80,26 @@ export default function BatchPage() {
 
           {/* Template note */}
           <div className="card p-4 mb-6 bg-primary-50 border border-primary-100">
-            <p className="text-sm text-primary-700">
-              <strong>Required columns:</strong> patient_name, AGE, GENDER, SMOKING, YELLOW_FINGERS,
-              ANXIETY, PEER_PRESSURE, CHRONIC_DISEASE, FATIGUE, ALLERGY, WHEEZING,
-              ALCOHOL_CONSUMING, COUGHING, SHORTNESS_OF_BREATH, SWALLOWING_DIFFICULTY, CHEST_PAIN
-            </p>
-            <p className="text-xs text-primary-600 mt-1">
-              Binary fields use 1 (No) or 2 (Yes). GENDER: M or F.
-            </p>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm text-primary-700 font-semibold mb-1">Required CSV columns:</p>
+                <p className="text-xs text-primary-600 font-mono leading-relaxed">
+                  patient_name, AGE, GENDER, SMOKING, YELLOW_FINGERS, ANXIETY, PEER_PRESSURE,
+                  CHRONIC_DISEASE, FATIGUE, ALLERGY, WHEEZING, ALCOHOL_CONSUMING, COUGHING,
+                  SHORTNESS_OF_BREATH, SWALLOWING_DIFFICULTY, CHEST_PAIN
+                </p>
+                <p className="text-xs text-primary-500 mt-1">
+                  Binary fields: 1 = No, 2 = Yes &nbsp;|&nbsp; GENDER: M or F
+                </p>
+              </div>
+              <button onClick={downloadTemplate}
+                className="flex items-center gap-1.5 bg-primary-600 text-white text-xs
+                           font-semibold px-3 py-2 rounded-lg hover:bg-primary-700
+                           transition-colors flex-shrink-0">
+                <FileDown className="w-3.5 h-3.5" />
+                Template
+              </button>
+            </div>
           </div>
 
           {/* Drop zone */}
