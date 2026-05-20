@@ -12,12 +12,7 @@ export default function Footer() {
             <span className="font-display font-bold text-primary-700">PulmoScan AI</span>
           </div>
 
-          <p className="text-xs text-medical-muted text-center max-w-lg">
-            ⚠️ This system is intended for educational and clinical decision-support purposes only.
-            It does not constitute a formal medical diagnosis. Always consult a qualified healthcare professional.
-          </p>
-
-          <div className="flex items-center gap-1 text-xs text-medical-muted">
+<div className="flex items-center gap-1 text-xs text-medical-muted">
             <span>Built with</span>
             <Heart className="w-3 h-3 text-red-400 fill-current" />
             <span>for healthcare</span>

@@ -14,7 +14,7 @@ async def connect_db():
     """Open MongoDB connection on app startup."""
     global client
     client = AsyncIOMotorClient(settings.MONGODB_URL)
-    print(f"✅ Connected to MongoDB at {settings.MONGODB_URL}")
+    print(f"[OK] Connected to MongoDB at {settings.MONGODB_URL}")
 
 
 async def close_db():
@@ -22,7 +22,7 @@ async def close_db():
     global client
     if client:
         client.close()
-        print("🔌 MongoDB connection closed")
+        print("[OK] MongoDB connection closed")
 
 
 def get_database():

@@ -88,7 +88,7 @@ export default function PredictionForm({ onSubmit, loading }: Props) {
               required
               min={1} max={120}
               value={form.AGE}
-              onChange={(e) => setForm((p) => ({ ...p, AGE: parseInt(e.target.value) }))}
+              onChange={(e) => setForm((p) => ({ ...p, AGE: e.target.value === "" ? 0 : parseInt(e.target.value) }))}
               className="input-field"
             />
           </div>
@@ -116,7 +116,6 @@ export default function PredictionForm({ onSubmit, loading }: Props) {
         </h3>
         <p className="text-sm text-medical-muted mb-4">
           Toggle each factor as <strong>Yes</strong> (present) or <strong>No</strong> (absent).
-          Values: 1 = No, 2 = Yes
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {SYMPTOM_FIELDS.map(({ key, label, description }) => (
@@ -137,7 +136,7 @@ export default function PredictionForm({ onSubmit, loading }: Props) {
                       : "bg-white text-medical-muted border-medical-border hover:border-green-300"
                     }`}
                 >
-                  No (1)
+                  No
                 </button>
                 <button
                   type="button"
@@ -148,7 +147,7 @@ export default function PredictionForm({ onSubmit, loading }: Props) {
                       : "bg-white text-medical-muted border-medical-border hover:border-red-300"
                     }`}
                 >
-                  Yes (2)
+                  Yes
                 </button>
               </div>
             </div>
@@ -167,9 +166,7 @@ export default function PredictionForm({ onSubmit, loading }: Props) {
         )}
       </button>
 
-      <p className="text-xs text-center text-medical-muted">
-        ⚠️ This tool is for clinical decision-support only and does not constitute a medical diagnosis.
-      </p>
+
     </form>
   );
 }

@@ -89,7 +89,18 @@ class MLService:
             label = "YES" if raw_pred == 1 else "NO"
 
         high_risk = label.upper() in ("YES", "1", "HIGH")
-        risk_prob = float(max(proba))
+
+        # Find the probability of the positive (cancer=YES) class
+        pos_idx = None
+        for i, cls in enumerate(self.model.classes_):
+            try:
+                decoded = self.label_encoder.inverse_transform([cls])[0].upper() if self.label_encoder else str(cls).upper()
+                if decoded in ("YES", "1", "HIGH"):
+                    pos_idx = i
+                    break
+            except Exception:
+                pass
+        risk_prob = float(proba[pos_idx]) if pos_idx is not None else float(proba[1] if len(proba) > 1 else proba[0])
 
         return {
             "high_risk": high_risk,
@@ -146,8 +157,8 @@ class MLService:
         return "NSCLC", NOTE
 
     @staticmethod
-    def get_recommendations(high_risk: bool) -> List[str]:
-        if high_risk:
+    def get_recommendations(prediction_label: str) -> List[str]:
+        if prediction_label == "HIGH RISK":
             return [
                 "Immediate referral to oncology specialist",
                 "CT scan of the chest recommended",
@@ -157,11 +168,11 @@ class MLService:
                 "Follow-up within 2 weeks",
             ]
         return [
+            "Schedule follow-up appointment within 3 months",
+            "Chest X-ray screening recommended",
+            "Smoking cessation if applicable",
+            "Monitor and report any worsening symptoms",
             "Maintain a healthy lifestyle and balanced diet",
-            "Regular exercise (≥150 min/week aerobic)",
-            "Annual chest X-ray screening",
-            "Avoid tobacco and secondhand smoke",
-            "Report new respiratory symptoms promptly",
         ]
 
 

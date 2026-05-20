@@ -1,6 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Stethoscope, Brain, Shield, Database, Code2, AlertCircle } from "lucide-react";
+import { Stethoscope, Brain, Shield, Database, Code2 } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -96,23 +96,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Disclaimer */}
-          <div className="card p-6 bg-amber-50 border border-amber-200">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" />
-              <div>
-                <h2 className="font-display font-bold text-amber-800 mb-2">Medical Disclaimer</h2>
-                <p className="text-sm text-amber-700 leading-relaxed">
-                  PulmoScan AI is a <strong>university capstone project</strong> developed for educational
-                  and clinical decision-support purposes only. It does <strong>not</strong> constitute a
-                  formal medical diagnosis. All predictions and AI-generated explanations must be reviewed
-                  by a qualified and licensed healthcare professional before any clinical action is taken.
-                  The subtype classification is heuristic-based and has not been clinically validated.
-                  Histopathological examination remains the gold standard for lung cancer diagnosis.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </main>
       <Footer />

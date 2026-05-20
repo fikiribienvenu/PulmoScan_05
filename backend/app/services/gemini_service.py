@@ -1,21 +1,12 @@
 """
 PulmoScan AI – Gemini Clinical Explanation Service
 Generates patient-friendly clinical explanations via Google Gemini API.
-
-DISCLAIMER: AI-generated explanations are for educational and clinical
-decision-support purposes only. They do NOT constitute medical diagnosis.
 """
 import google.generativeai as genai
 from typing import Optional, Dict, Any
 from app.core.config import get_settings
 
 settings = get_settings()
-
-DISCLAIMER = (
-    "⚠️ AI-generated explanations are for educational and clinical decision-support "
-    "purposes only and do not constitute a medical diagnosis. Always consult a qualified "
-    "healthcare professional."
-)
 
 
 def _build_prompt(patient: Dict[str, Any], prediction: str, risk_prob: float,
@@ -71,17 +62,16 @@ async def get_gemini_explanation(
     """Call Gemini API and return clinical explanation text."""
     api_key = settings.GEMINI_API_KEY
     if not api_key or api_key == "your-gemini-api-key-here":
-        return (
-            "Gemini AI explanation unavailable. "
-            "Please configure GEMINI_API_KEY in your environment. " + DISCLAIMER
-        )
+        return "Gemini AI explanation unavailable. Please configure GEMINI_API_KEY in your environment."
 
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash")
         prompt = _build_prompt(patient, prediction, risk_prob, subtype)
         response = model.generate_content(prompt)
-        text = response.text.strip()
-        return f"{text}\n\n{DISCLAIMER}"
+        return response.text.strip()
     except Exception as exc:
-        return f"Gemini explanation could not be generated: {exc}\n\n{DISCLAIMER}"
+        err = str(exc)
+        if "429" in err or "quota" in err.lower():
+            return "AI explanation temporarily unavailable — free tier daily quota reached. It resets at midnight Pacific Time. The prediction result above is still valid."
+        return f"AI explanation temporarily unavailable: {exc}"

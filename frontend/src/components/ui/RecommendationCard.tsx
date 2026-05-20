@@ -2,10 +2,11 @@ import { CheckCircle2, AlertTriangle } from "lucide-react";
 
 interface Props {
   recommendations: string[];
-  isHighRisk: boolean;
+  prediction: "HIGH RISK" | "LOW RISK";
 }
 
-export default function RecommendationCard({ recommendations, isHighRisk }: Props) {
+export default function RecommendationCard({ recommendations, prediction }: Props) {
+  const isHighRisk = prediction === "HIGH RISK";
   const Icon = isHighRisk ? AlertTriangle : CheckCircle2;
   const color = isHighRisk ? "text-red-500" : "text-green-500";
   const bg = isHighRisk ? "bg-red-50 border-red-200" : "bg-green-50 border-green-200";

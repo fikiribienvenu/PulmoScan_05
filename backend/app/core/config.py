@@ -4,6 +4,10 @@ Settings loaded from environment variables via pydantic-settings.
 """
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from pathlib import Path
+
+# Walk up from backend/app/core/ → backend/ → project root
+_ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
 
 
 class Settings(BaseSettings):
@@ -27,8 +31,9 @@ class Settings(BaseSettings):
         return [o.strip() for o in self.ALLOWED_ORIGINS.split(",")]
 
     class Config:
-        env_file = ".env"
+        env_file = str(_ENV_FILE)
         case_sensitive = True
+        extra = "ignore"
 
 
 @lru_cache()

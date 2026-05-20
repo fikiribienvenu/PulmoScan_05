@@ -108,15 +108,14 @@ export default function PredictPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <RecommendationCard
                   recommendations={result.recommendations}
-                  isHighRisk={result.prediction === "HIGH RISK"}
+                  prediction={result.prediction}
                 />
                 <GeminiExplanationCard explanation={result.gemini_explanation} />
               </div>
 
               <div className="card p-4 bg-slate-50 border border-slate-200 text-xs text-medical-muted">
                 📋 Record ID: {result.prediction_id} •{" "}
-                {new Date(result.created_at).toLocaleString()} •{" "}
-                {result.disclaimer}
+                {new Date(result.created_at).toLocaleString()}
               </div>
             </div>
           )}

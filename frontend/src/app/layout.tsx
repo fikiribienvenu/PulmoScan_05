@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "PulmoScan AI – Lung Cancer Risk Prediction",
   description:
-    "Clinical decision support system for lung cancer risk assessment. For educational purposes only.",
+    "AI-powered lung cancer risk prediction and clinical decision support system.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

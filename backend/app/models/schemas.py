@@ -1,7 +1,7 @@
 """
 PulmoScan AI – Pydantic Models (Request/Response Schemas)
 """
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from typing import Optional, List
 from datetime import datetime
 
@@ -51,6 +51,8 @@ class PatientInput(BaseModel):
 
 
 class PredictionResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
     patient_name: str
     prediction: str          # "HIGH RISK" | "LOW RISK"
     risk_probability: float  # 0.0 – 1.0
@@ -59,7 +61,6 @@ class PredictionResponse(BaseModel):
     model_used: str
     recommendations: List[str]
     gemini_explanation: Optional[str]
-    disclaimer: str
     prediction_id: str
     created_at: datetime
 
@@ -72,6 +73,8 @@ class YearlyStats(BaseModel):
 
 
 class StatisticsResponse(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
     total_predictions: int
     high_risk_count: int
     low_risk_count: int
@@ -83,6 +86,8 @@ class StatisticsResponse(BaseModel):
 # ── Patient Record ────────────────────────────────────────────────────────────
 
 class PatientRecord(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
     id: str
     patient_name: str
     age: int

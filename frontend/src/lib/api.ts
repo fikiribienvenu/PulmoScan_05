@@ -9,6 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const api = axios.create({
   baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
+  withCredentials: false,   // must be false when backend uses allow_origins=["*"]
 });
 
 // Attach JWT token from cookies on every request

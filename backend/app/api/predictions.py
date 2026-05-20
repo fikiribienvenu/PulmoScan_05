@@ -21,11 +21,6 @@ from app.services.gemini_service import get_gemini_explanation
 
 router = APIRouter(tags=["Predictions"])
 
-DISCLAIMER = (
-    "This system is intended for educational and clinical decision-support purposes only. "
-    "It does not constitute a formal medical diagnosis."
-)
-
 
 def _serialize_prediction(p: dict) -> dict:
     p["id"] = str(p.pop("_id"))
@@ -45,18 +40,18 @@ async def predict(
 
     # ML inference
     result = ml.predict(patient_dict)
-    high_risk = result["high_risk"]
     risk_prob = result["risk_probability"]
     model_used = result["model_used"]
+
+    # Two-class label based on cancer probability
+    high_risk = risk_prob >= 0.5
+    prediction_label = "HIGH RISK" if high_risk else "LOW RISK"
 
     # Subtype heuristic
     subtype, subtype_note = ml.estimate_subtype(patient_dict, high_risk)
 
     # Recommendations
-    recommendations = ml.get_recommendations(high_risk)
-
-    # Gemini clinical explanation (async)
-    prediction_label = "HIGH RISK" if high_risk else "LOW RISK"
+    recommendations = ml.get_recommendations(prediction_label)
     gemini_text = await get_gemini_explanation(
         patient_dict, prediction_label, risk_prob, subtype
     )
@@ -87,7 +82,6 @@ async def predict(
         model_used=model_used,
         recommendations=recommendations,
         gemini_explanation=gemini_text,
-        disclaimer=DISCLAIMER,
         prediction_id=str(inserted.inserted_id),
         created_at=doc["created_at"],
     )

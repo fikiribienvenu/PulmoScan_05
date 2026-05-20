@@ -124,7 +124,7 @@ export default function StatisticsPage() {
               <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
                   <Pie data={riskPieData} cx="50%" cy="50%" outerRadius={80}
-                    dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                    dataKey="value" label={({ name, percent }) => `${name} ${isNaN(percent) ? "0" : (percent * 100).toFixed(0)}%`}>
                     <Cell fill="#ef4444" />
                     <Cell fill="#22c55e" />
                   </Pie>
@@ -139,7 +139,7 @@ export default function StatisticsPage() {
               <ResponsiveContainer width="100%" height={220}>
                 <PieChart>
                   <Pie data={genderPieData} cx="50%" cy="50%" outerRadius={80}
-                    dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                    dataKey="value" label={({ name, percent }) => `${name} ${isNaN(percent) ? "0" : (percent * 100).toFixed(0)}%`}>
                     <Cell fill="#2578e8" />
                     <Cell fill="#ec4899" />
                   </Pie>

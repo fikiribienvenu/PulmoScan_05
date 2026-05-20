@@ -42,7 +42,6 @@ export interface PredictionResult {
   model_used: string;
   recommendations: string[];
   gemini_explanation: string | null;
-  disclaimer: string;
   prediction_id: string;
   created_at: string;
 }

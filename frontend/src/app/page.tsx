@@ -149,18 +149,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Disclaimer */}
-      <section className="py-8 px-4 bg-amber-50 border-y border-amber-200">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-amber-800 font-medium">
-            ⚠️ <strong>Educational & Clinical Decision-Support Tool Only.</strong>{" "}
-            PulmoScan AI is not a substitute for professional medical advice, diagnosis, or treatment.
-            All predictions should be reviewed by a qualified healthcare professional.
-          </p>
-        </div>
-      </section>
-
-      <Footer />
+<Footer />
     </div>
   );
 }

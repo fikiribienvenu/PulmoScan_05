@@ -102,13 +102,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Disclaimer */}
-          <div className="card p-4 bg-amber-50 border border-amber-200">
-            <p className="text-sm text-amber-800">
-              ⚠️ <strong>Clinical Reminder:</strong> All AI predictions are decision-support tools only.
-              Formal diagnosis requires comprehensive clinical evaluation by a qualified physician.
-            </p>
-          </div>
         </main>
         <Footer />
       </div>

@@ -1,4 +1,4 @@
-import { Brain, AlertCircle } from "lucide-react";
+import { Brain } from "lucide-react";
 
 interface Props {
   explanation: string | null;
@@ -24,13 +24,7 @@ export default function GeminiExplanationCard({ explanation }: Props) {
         {explanation}
       </div>
 
-      <div className="mt-4 flex items-start gap-2 p-3 bg-amber-50 rounded-lg border border-amber-200">
-        <AlertCircle className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
-        <p className="text-xs text-amber-700">
-          AI-generated explanations are for educational and clinical decision-support purposes only.
-          They do not constitute a medical diagnosis.
-        </p>
-      </div>
+
     </div>
   );
 }
