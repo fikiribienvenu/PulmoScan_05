@@ -25,5 +25,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Claude Code memory
+.claude/
+
 # Duplicate deployment copy
 PulmoScan_05/
