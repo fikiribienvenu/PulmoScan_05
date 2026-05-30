@@ -28,5 +28,20 @@ Thumbs.db
 # Claude Code memory
 .claude/
 
+# ML model artifacts (large binary files - regenerate with train_multiclass.py)
+backend/ml_models/*.pkl
+backend/training_log.txt
+
+# Large dataset files (too large for GitHub - download separately)
+backend/data/LungCanC2024_Dataset.csv
+backend/data/*.csv
+
+# Temporary Word lock files
+~$*.docx
+~$*.xlsx
+
+# Jupyter build artifacts
+frontend/tsconfig.tsbuildinfo
+
 # Duplicate deployment copy
 PulmoScan_05/
